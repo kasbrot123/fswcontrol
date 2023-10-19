@@ -1,19 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Script: "3d_visualization.py"
+
+Author(s): Michael Toefferl
+Created: 2023-10-19 12:35
+
+
+Class to control the Rohde & Schwarz FSW spectrum analyzer via python commands.
+
+
+
+
+"""
+
+
 import os
 import datetime
 from RsInstrument import RsInstrument, BinFloatFormat
-
-
-"""
-
-FSW_Example.py
-    basic commands
-
-HelloWorld_Example.py
-    connection types (TCPIP, GPIB, USB, RSNRP, etc.)
-
-
-"""
-
 
 
 class FSW:
@@ -125,13 +128,22 @@ class FSW:
 
         self.instr.write_str_with_opc('INIT')  # Start the sweep and wait for it to finish
 
-        # t = time()
         trace = self.instr.query_bin_or_ascii_float_list('FORM ASC;:TRAC? TRACE1')  # Query ascii array of floats
-        # print(f'Instrument returned {len(trace)} points in the ascii trace, query duration {time() - t:.3f} secs')
-        # t = time()
-
         marker_x, marker_y = self.marker_xy()
-        date_time = datetime.datetime.now().strftime('%d.%m.%Y, %H:%M:%S.txt')
+
+
+        date_time = datetime.datetime.now().strftime('%d.%m.%Y, %H:%M:%S')
+
+        # for generating test files 
+        # # x = np.linspace(-4, 4, 100)
+        # # trace = 10*np.exp(-x**2)
+        # split = name.replace('.txt','').split('_')
+        # az = float(split[-2])
+        # el = float(split[-1])
+        # trace = np.ones(100)*np.cos(az*np.pi/180)*np.cos(el*np.pi/180)
+        # # x = np.linspace(-4, 4, 100)
+        # # trace = 10*np.exp(-x**2)
+        # marker_x, marker_y = 10, 10
 
 
         f_path = self.path + os.sep + name
@@ -195,17 +207,24 @@ class FSW:
         print('reconnect with self.init()')
 
 
+import numpy as np
 
 # for testing
 if __name__ == '__main__':
 
     fsw = FSW()
+    fsw.set_path('./data')
     fsw.ip = '192.168.0.61'
     fsw.init()
     fsw.basic_config()
     fsw.measure()
     mx, my = fsw.marker_xy()
     print('Max Marker at {mx} GHz with {my} dB')
+
+    # for az in np.arange(-100, 100, 10):
+    #     for el in np.arange(-100, 100, 10):
+    #         fsw.measure('testing_{}_{}.txt'.format(az, el))
+
 
 
 
