@@ -36,8 +36,8 @@ class FSW:
         try:
             # Adjust the VISA Resource string to fit your instrument
             instr = RsInstrument('TCPIP::' + self.ip + '', id_query=True, reset=False)
-            instr.visa_timeout = 10000  # Timeout for VISA Read Operations
-            instr.opc_timeout = 10000  # Timeout for opc-synchronised operations
+            instr.visa_timeout = 20000  # Timeout for VISA Read Operations
+            instr.opc_timeout = 20000  # Timeout for opc-synchronised operations
             instr.instrument_status_checking = True  # Error check after each command
         except Exception as ex:
             print('Error initializing the instrument session:\n' + ex.args[0])
@@ -49,19 +49,20 @@ class FSW:
         print('Hello, I am: ' + idn)
 
         self.debug(True)
-        self.continuous_sweep(False)
-        self.get_parameter()
+        # self.continuous_sweep(False)
+        # self.get_parameter()
 
     def get_parameter(self):
 
         # functionality not tested
-        f_center = self.instr.write_str('FREQ:CENT?')
-        f_span = self.instr.write_str('FREQ:SPAN?')
-        N_points = self.instr.write_str('SWE:POIN?')
+        # f_center = self.instr.write_str('FREQ:CENT?')
+        # f_span = self.instr.write_str('FREQ:SPAN?')
+        # N_points = self.instr.write_str('SWE:POIN?')
         
-        print(f_center, type(f_center))
-        print(f_span, type(f_center))
-        print(N_points, type(f_center))
+        # print(f_center, type(f_center))
+        # print(f_span, type(f_center))
+        # print(N_points, type(f_center))
+        return 
 
         # self.f_center = f_center
         # self.f_span = f_center
@@ -87,12 +88,12 @@ class FSW:
             print('continuous sweep off')
 
     def basic_config(self):
-        self.instr.write_str('DISP:WIND:TRAC:Y:RLEV 10.0')  # Setting the Reference Level
-        self.instr.write_str('FREQ:CENT 3.0 GHz')  # Setting the center frequency
-        self.instr.write_str('FREQ:SPAN 200 MHz')  # Setting the span
-        self.instr.write_str('BAND 100 kHz')  # Setting the RBW
-        self.instr.write_str('BAND:VID 300kHz')  # Setting the VBW
-        self.instr.write_str('SWE:POIN 10001')  # Setting the sweep points
+        # self.instr.write_str('DISP:WIND:TRAC:Y:RLEV 10.0')  # Setting the Reference Level
+        self.instr.write_str('FREQ:CENT 61.0 GHz')  # Setting the center frequency
+        self.instr.write_str('FREQ:SPAN 1000 MHz')  # Setting the span
+        self.instr.write_str('SWE:POIN 1001')  # Setting the sweep points
+        # self.instr.write_str('BAND 100 kHz')  # Setting the RBW
+        # self.instr.write_str('BAND:VID 300kHz')  # Setting the VBW
         answer = self.instr.query_opc()  # Using *OPC? query waits until all the instrument settings are finished
 
         # maybe better try-catch
@@ -211,15 +212,16 @@ import numpy as np
 
 # for testing
 if __name__ == '__main__':
+    IP = '192.168.0.62'
 
     fsw = FSW()
     fsw.set_path('./data')
-    fsw.ip = '192.168.0.61'
+    fsw.ip = IP
     fsw.init()
     fsw.basic_config()
     fsw.measure()
     mx, my = fsw.marker_xy()
-    print('Max Marker at {mx} GHz with {my} dB')
+    print(f'Max Marker at {mx} GHz with {my} dB')
 
     # for az in np.arange(-100, 100, 10):
     #     for el in np.arange(-100, 100, 10):
