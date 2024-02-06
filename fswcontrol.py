@@ -55,9 +55,10 @@ class FSW:
     def get_parameter(self):
 
         # functionality not tested
-        # f_center = self.instr.write_str('FREQ:CENT?')
-        # f_span = self.instr.write_str('FREQ:SPAN?')
-        # N_points = self.instr.write_str('SWE:POIN?')
+        self.f_center = self.instr.query_float('FREQ:CENT?')
+        self.f_span = self.instr.query_float('FREQ:SPAN?')
+        self.N_points = self.instr.query_float('SWE:POIN?')
+
         
         # print(f_center, type(f_center))
         # print(f_span, type(f_center))
@@ -92,6 +93,9 @@ class FSW:
         self.instr.write_str('FREQ:CENT 61.0 GHz')  # Setting the center frequency
         self.instr.write_str('FREQ:SPAN 1000 MHz')  # Setting the span
         self.instr.write_str('SWE:POIN 1001')  # Setting the sweep points
+        # old settings
+        # self.instr.write_str('FREQ:SPAN 1000 MHz')  # Setting the span
+        # self.instr.write_str('SWE:POIN 1001')  # Setting the sweep points
         # self.instr.write_str('BAND 100 kHz')  # Setting the RBW
         # self.instr.write_str('BAND:VID 300kHz')  # Setting the VBW
         answer = self.instr.query_opc()  # Using *OPC? query waits until all the instrument settings are finished

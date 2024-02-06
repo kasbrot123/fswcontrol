@@ -22,7 +22,7 @@ from matplotlib import colors
 
 
 # path of measurement files
-path = './testing2'
+path = '../2024_02_02_Linsen_Michi_Christoph/run02'
 
 
 
