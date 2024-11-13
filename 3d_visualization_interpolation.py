@@ -200,63 +200,10 @@ def plot2d(path, interp_factor=0,sphere=True):
 
 FACTOR = 0
 
-# path of measurement files
-# path = '../2024_02_02_Linsen_Michi_Christoph/run02'
+if __name__ == '__main__':
 
-# falsche polarisation
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run01', interp_factor=2, sphere=True)
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run02', interp_factor=2, sphere=True)
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run03', interp_factor=2, sphere=True)
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run04', interp_factor=2, sphere=True)
-
-
-# philipp
-# plot3d('../2024_02_15_philipp_linse/run01', interp_factor=0, sphere=True)
-plot3d('../2024_02_15_philipp_linse/run01', interp_factor=0, sphere=True)
-plot3d('../2024_02_15_philipp_linse/run02', interp_factor=0, sphere=True)
-plot3d('../2024_02_15_philipp_linse/run03', interp_factor=0, sphere=True)
-
-# good results
-
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run05', interp_factor=FACTOR, sphere=True) # lens
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run06', interp_factor=FACTOR, sphere=True) # oam + lens
-# plot3d('../2024_02_02_Linsen_Michi_Christoph/run07', interp_factor=FACTOR, sphere=True) # chip only
-#
-# plot3d('../2024_02_05_Linsen_Michi/run01', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run02', interp_factor=FACTOR, sphere=True)
-# fig_lens = plot3d('../2024_02_05_Linsen_Michi/run03', interp_factor=1, sphere=True) # lens
-# plot3d('../2024_02_05_Linsen_Michi/run05', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run06', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run11', interp_factor=FACTOR, sphere=True)
-# fig_oam_lens = plot3d('../2024_02_05_Linsen_Michi/run12', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run13', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run14', interp_factor=FACTOR, sphere=True)
-# plot3d('../2024_02_05_Linsen_Michi/run15', interp_factor=FACTOR, sphere=True)
-#
-#
-# az_oam, r_oam = plot2d('../2024_02_05_Linsen_Michi/run07', interp_factor=FACTOR, sphere=True)
-# az_chip, r_chip = plot2d('../2024_02_05_Linsen_Michi/run08', interp_factor=FACTOR, sphere=True)
-# az_lens, r_lens = plot2d('../2024_02_05_Linsen_Michi/run09', interp_factor=FACTOR, sphere=True)
-# az_oam_lens, r_oam_lens = plot2d('../2024_02_05_Linsen_Michi/run10', interp_factor=FACTOR, sphere=True)
-#
-#
-# fig_slice = plt.figure()
-# plt.plot(az_lens, r_lens, 'o--b', label='lens f=50mm')
-# plt.plot(az_chip, r_chip, 'o--r', label='chip with mounting')
-# # plt.plot(az_oam, r_oam, 'o--k', label='oam phase plate')
-# plt.plot(az_oam_lens, r_oam_lens, 'o--m', label='oam with lens')
-# plt.xlim([-20,20])
-# plt.xlabel('Azimuth angle in °')
-# plt.ylabel('Amplitude in dBm')
-# plt.grid()
-# plt.legend(loc='lower left')
-#
-#
-# fig_slice.savefig('amplitude_vs_azimuth.svg')
-# fig_lens.savefig('2d_lens.svg')
-# fig_oam_lens.savefig('2d_oam_with_lens.svg')
-#
-#
-plt.show()
+    path_measurement = './folder'
+    plot3d(path_measurement, interp_factor=2, sphere=True)
+    plt.show()
 
 
